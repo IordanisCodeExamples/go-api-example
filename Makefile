@@ -7,15 +7,15 @@ compile:
 	GOOS=linux GOARCH=arm go build -o bin/main-linux-arm app.go
 	GOOS=linux GOARCH=arm64 go build -o bin/main-linux-arm64 app.go
 	GOOS=freebsd GOARCH=386 go build -o bin/main-freebsd-386 app.go
-test:
-	go test ./...
-test-conver:
-	go test -cover ./...
 generate:
 	go generate -x ./...
 get-generator:
 	go install github.com/golang/mock/mockgen
-integration:
+test:
+	go test ./...
+test-conver:
+	go test -cover ./...
+test-integration:
 	docker-compose down --rmi local
 	docker-compose build --parallel
 	docker-compose up -d --force-recreate
