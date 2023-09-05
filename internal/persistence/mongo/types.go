@@ -7,7 +7,7 @@ type Movie struct {
 	ID               primitive.ObjectID `bson:"_id,omitempty"`
 	Title            string             `bson:"title"`
 	Year             int                `bson:"year"`
-	Duration         int                `bson:"duration"` // In minutes
+	Duration         int                `bson:"duration"`
 	Director         string             `bson:"director"`
 	Cast             []string           `bson:"cast"`
 	Genre            []string           `bson:"genre"`
