@@ -29,17 +29,6 @@ func (db *DB) FindMovie(ctx context.Context, title string) (*Movie, error) {
 	return &movie, nil
 }
 
-// UpdateMovie updates a movie in the database
-func (db *DB) UpdateMovie(ctx context.Context, id primitive.ObjectID, updatedMovie Movie) (*mongo.UpdateResult, error) {
-	return db.movieCollection.UpdateOne(
-		ctx,
-		bson.M{"_id": id},
-		bson.D{
-			{Key: "$set", Value: updatedMovie},
-		},
-	)
-}
-
 // DeleteMovie deletes a movie from the database
 func (db *DB) DeleteMovie(ctx context.Context, id primitive.ObjectID) (*mongo.DeleteResult, error) {
 	return db.movieCollection.DeleteOne(ctx, bson.M{"_id": id})
