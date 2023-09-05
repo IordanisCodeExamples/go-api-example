@@ -114,7 +114,7 @@ func Test_FindMovie(t *testing.T) {
 }
 
 func Test_DeleteMovie(t *testing.T) {
-	/*t.Run("delete movie successfully", func(t *testing.T) {
+	t.Run("delete movie successfully", func(t *testing.T) {
 		ctx := context.Background()
 		_, s, td := buildMongoStore(t)
 		defer td()
@@ -129,15 +129,13 @@ func Test_DeleteMovie(t *testing.T) {
 			Synopsis:         "An example movie synopsis",
 			BoxOfficeRevenue: 32.5,
 		})
-		// Assuming you have a movie inserted and you have its ID
-		movieID := someID // Replace with actual ObjectID
 
-		deleteResult, err := s.DeleteMovie(ctx, movieID)
+		deleteResult, err := s.DeleteMovie(ctx, insertedMovie.InsertedID.(primitive.ObjectID))
 
 		assert.Nil(t, err)
 		assert.NotNil(t, deleteResult)
 		assert.Equal(t, int64(1), deleteResult.DeletedCount)
-	})*/
+	})
 
 	t.Run("delete movie fails with canceled context", func(t *testing.T) {
 		ctx, cancel := context.WithCancel(context.Background())
