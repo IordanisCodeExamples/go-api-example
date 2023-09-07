@@ -17,3 +17,16 @@ func fromKafkaOjectToMongoObject(movie transportkafka.Movie) mongostore.Movie {
 		BoxOfficeRevenue: movie.BoxOfficeRevenue,
 	}
 }
+
+func fromMongoObjectToKafkaObject(movie mongostore.Movie) *transportkafka.Movie {
+	return &transportkafka.Movie{
+		Title:            movie.Title,
+		Year:             movie.Year,
+		Duration:         movie.Duration,
+		Director:         movie.Director,
+		Cast:             movie.Cast,
+		Genre:            movie.Genre,
+		Synopsis:         movie.Synopsis,
+		BoxOfficeRevenue: movie.BoxOfficeRevenue,
+	}
+}
