@@ -60,10 +60,10 @@ func (c *Consumer) Consume(handler func(*kafka.Message) error) {
 
 // StartConsuming starts consuming messages from kafka
 func (c *Consumer) StartConsuming() {
-	fmt.Println("HELLO")
 	go c.Consume(func(msg *kafka.Message) error {
 		handler, ok := c.TopicsAndHandlers[*msg.TopicPartition.Topic]
 		if ok {
+			fmt.Println("MARIKA2")
 			handler(msg)
 		} else {
 			return fmt.Errorf("no handler found for topic %s", *msg.TopicPartition.Topic)

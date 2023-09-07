@@ -9,6 +9,7 @@ require (
 	github.com/stretchr/testify v1.8.1
 	go.mongodb.org/mongo-driver v1.12.1
 	go.uber.org/zap v1.25.0
+	gopkg.in/yaml.v2 v2.2.8
 )
 
 require (

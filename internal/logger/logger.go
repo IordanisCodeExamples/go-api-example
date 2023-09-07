@@ -12,14 +12,12 @@ type Logger struct {
 	logger *zap.Logger
 }
 
+// LogField represents a field to be logged.
 type LogField map[string]interface{}
 
 // NewLogger creates a new Logger instance.
 func NewLogger() (*Logger, error) {
-	config := zap.NewDevelopmentConfig()
-	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
-
-	logger, err := config.Build()
+	logger, err := zap.NewProduction()
 	if err != nil {
 		return nil, fmt.Errorf("failed to create logger: %w", err)
 	}
