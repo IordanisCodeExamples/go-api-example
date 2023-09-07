@@ -12,7 +12,7 @@ func main() {
 
 func setUpKafkaConsumer() {
 	configMap := kafka.ConfigMap{
-		"bootstrap.servers": "kafka:9092",
+		"bootstrap.servers": "localhost:9094",
 		"group.id":          "my-consumer-group",
 		"auto.offset.reset": "earliest",
 	}
