@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/confluentinc/confluent-kafka-go/kafka"
+	merror "github.com/junkd0g/neji"
 )
 
 // Service is the interface that wraps the service layer methods
@@ -26,7 +27,7 @@ func NewConsumer(
 	service Service,
 ) (*Consumer, error) {
 	if service == nil {
-		//return nil, merror.ErrInvalidParameter("service")
+		return nil, merror.ErrInvalidParameter("service")
 	}
 
 	consumer, err := kafka.NewConsumer(config)
@@ -52,13 +53,14 @@ func (c *Consumer) Consume(handler func(*kafka.Message) error) {
 		if err == nil {
 			handler(msg)
 		} else {
-			// Handle error
+			fmt.Printf("Consumer error: %v (%v)\n", err, msg)
 		}
 	}
 }
 
 // StartConsuming starts consuming messages from kafka
 func (c *Consumer) StartConsuming() {
+	fmt.Println("HELLO")
 	go c.Consume(func(msg *kafka.Message) error {
 		handler, ok := c.TopicsAndHandlers[*msg.TopicPartition.Topic]
 		if ok {

@@ -33,6 +33,12 @@ services:
             KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
             KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
             KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+            KAFKA_LOG_DIRS: /var/lib/kafka/data
+            # Additional Kafka Configuration Properties:
+            KAFKA_DEFAULT_REPLICATION_FACTOR: 1
+            KAFKA_MIN_INSYNC_REPLICAS: 1
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+            # Add any other Kafka configuration properties here
         ports:
             - 9092:9092
             - 9094:9094

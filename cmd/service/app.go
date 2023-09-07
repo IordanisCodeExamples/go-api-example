@@ -1,18 +1,21 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 
 	transportkafka "github.com/junkd0g/go-api-example/internal/transport/kafka"
 )
 
 func main() {
+	fmt.Println("Hello world")
 	setUpKafkaConsumer()
 }
 
 func setUpKafkaConsumer() {
 	configMap := kafka.ConfigMap{
-		"bootstrap.servers": "kafka:9092",
+		"bootstrap.servers": "localhost:9094",
 		"group.id":          "my-consumer-group",
 		"auto.offset.reset": "earliest",
 	}
