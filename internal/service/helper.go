@@ -2,10 +2,10 @@ package service
 
 import (
 	mongostore "github.com/junkd0g/go-api-example/internal/persistence/mongo"
-	transportkafka "github.com/junkd0g/go-api-example/internal/transport/kafka"
+	"github.com/junkd0g/go-api-example/internal/transport"
 )
 
-func fromKafkaOjectToMongoObject(movie transportkafka.Movie) mongostore.Movie {
+func fromKafkaOjectToMongoObject(movie transport.Movie) mongostore.Movie {
 	return mongostore.Movie{
 		Title:            movie.Title,
 		Year:             movie.Year,
@@ -18,8 +18,8 @@ func fromKafkaOjectToMongoObject(movie transportkafka.Movie) mongostore.Movie {
 	}
 }
 
-func fromMongoObjectToKafkaObject(movie mongostore.Movie) *transportkafka.Movie {
-	return &transportkafka.Movie{
+func fromMongoObjectToKafkaObject(movie mongostore.Movie) *transport.Movie {
+	return &transport.Movie{
 		Title:            movie.Title,
 		Year:             movie.Year,
 		Duration:         movie.Duration,

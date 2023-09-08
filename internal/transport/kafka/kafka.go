@@ -6,12 +6,14 @@ import (
 
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 	merror "github.com/junkd0g/neji"
+
+	"github.com/junkd0g/go-api-example/internal/transport"
 )
 
 // Service is the interface that wraps the service layer methods
 type Service interface {
 	// IngestMovie ingest a movie to the database
-	IngestMovie(ctx context.Context, movie Movie) error
+	IngestMovie(ctx context.Context, movie transport.Movie) error
 }
 
 // Consumer represents the kafka consumer

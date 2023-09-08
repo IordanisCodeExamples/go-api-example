@@ -1,4 +1,4 @@
-package transportkafka
+package transport
 
 // Movie represents the movie object send through kafka
 type Movie struct {

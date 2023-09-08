@@ -10,7 +10,7 @@ import (
 
 	mongostore "github.com/junkd0g/go-api-example/internal/persistence/mongo"
 	"github.com/junkd0g/go-api-example/internal/service"
-	transportkafka "github.com/junkd0g/go-api-example/internal/transport/kafka"
+	"github.com/junkd0g/go-api-example/internal/transport"
 )
 
 func Test_IngestMovie(t *testing.T) {
@@ -39,7 +39,7 @@ func Test_IngestMovie(t *testing.T) {
 		assert.NotNil(t, srv)
 
 		// act
-		err = srv.IngestMovie(mocks.ctx, transportkafka.Movie{
+		err = srv.IngestMovie(mocks.ctx, transport.Movie{
 			Title:            "The Godfather",
 			Year:             1972,
 			Duration:         175,
@@ -78,7 +78,7 @@ func Test_IngestMovie(t *testing.T) {
 		assert.NotNil(t, srv)
 
 		// act
-		err = srv.IngestMovie(mocks.ctx, transportkafka.Movie{
+		err = srv.IngestMovie(mocks.ctx, transport.Movie{
 			Title:            "The Godfather",
 			Year:             1972,
 			Duration:         175,

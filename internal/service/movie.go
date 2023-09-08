@@ -4,12 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	transportkafka "github.com/junkd0g/go-api-example/internal/transport/kafka"
+	"github.com/junkd0g/go-api-example/internal/transport"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 // IngestMovie ingests a movie in the database through the service layer
-func (s *Service) IngestMovie(ctx context.Context, movie transportkafka.Movie) error {
+func (s *Service) IngestMovie(ctx context.Context, movie transport.Movie) error {
 	_, err := s.Store.InsertMovie(ctx, fromKafkaOjectToMongoObject(movie))
 	if err != nil {
 		return fmt.Errorf("error_inserting_movie %v", err)
@@ -21,7 +21,7 @@ func (s *Service) IngestMovie(ctx context.Context, movie transportkafka.Movie) e
 func (s *Service) GetMovie(
 	ctx context.Context,
 	title string,
-) (*transportkafka.Movie, error) {
+) (*transport.Movie, error) {
 	movie, err := s.Store.FindMovie(ctx, title)
 	if err != nil {
 		return nil, fmt.Errorf("error_fetching_movie %v", err)
