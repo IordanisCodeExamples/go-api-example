@@ -3,7 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"os"
+	"os/signal"
+	"sync"
+	"syscall"
+	"time"
 
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -14,6 +19,7 @@ import (
 	internallogger "github.com/junkd0g/go-api-example/internal/logger"
 	store "github.com/junkd0g/go-api-example/internal/persistence/mongo"
 	"github.com/junkd0g/go-api-example/internal/service"
+	transporthttp "github.com/junkd0g/go-api-example/internal/transport/http"
 	transportkafka "github.com/junkd0g/go-api-example/internal/transport/kafka"
 )
 
@@ -23,6 +29,8 @@ var (
 )
 
 func main() {
+	var wg sync.WaitGroup
+
 	if len(env) == 0 {
 		env = "dev"
 		configPath = "./assets/config/dev.yaml"
@@ -56,8 +64,27 @@ func main() {
 		panic(fmt.Errorf("creating_service %w", err))
 	}
 
-	logger.Info("Starting Kafka Consumer")
-	setUpKafkaConsumer(configData, srv)
+	wg.Add(1)
+	go func() {
+		logger.Info("Starting Kafka Consumer")
+		setUpKafkaConsumer(configData, srv)
+		wg.Done()
+	}()
+
+	wg.Add(1)
+	go func() {
+		logger.Info("Starting HTTP Server")
+		runHttpServer(ctx, configData, srv)
+		wg.Done()
+	}()
+
+	// Wait for a SIGINT or SIGTERM signal
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
+	<-stop
+
+	logger.Info("Shutting down gracefully...")
+	wg.Wait()
 }
 
 func setUpPersistence(ctx context.Context, config *config.AppConf, env string) (*store.DB, error) {
@@ -67,7 +94,7 @@ func setUpPersistence(ctx context.Context, config *config.AppConf, env string) (
 	}
 
 	connection := fmt.Sprintf(
-		"%s://%s:%s@%s/<dbname>?retryWrites=true&w=majority",
+		"%s://%s:%s@%s",
 		s,
 		config.DB.Username,
 		config.DB.Password,
@@ -106,4 +133,21 @@ func setUpKafkaConsumer(config *config.AppConf, srv *service.Service) {
 	consumer.StartConsuming()
 
 	select {}
+}
+
+func runHttpServer(ctx context.Context, config *config.AppConf, srv *service.Service) {
+	httpServer, err := transporthttp.NewHttpServer(ctx, srv)
+	if err != nil {
+		panic(err)
+	}
+
+	router := httpServer.GetRouter()
+	server := &http.Server{
+		Addr:              config.Server.Port,
+		ReadHeaderTimeout: 10 * time.Second,
+		Handler:           router,
+	}
+	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		panic(fmt.Errorf("listener_and_serve: %w", err))
+	}
 }

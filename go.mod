@@ -5,6 +5,7 @@ go 1.20
 require (
 	github.com/confluentinc/confluent-kafka-go v1.9.2
 	github.com/golang/mock v1.6.0
+	github.com/gorilla/mux v1.8.0
 	github.com/junkd0g/neji v1.0.0
 	github.com/stretchr/testify v1.8.1
 	go.mongodb.org/mongo-driver v1.12.1
