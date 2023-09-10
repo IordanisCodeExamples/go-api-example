@@ -1,2 +1,11 @@
 server:
   port: ":8888"
+db:
+  url:  "localhost:27017"
+  username: "username"
+  password: "password"
+  database:  "lamovie"
+kafka:
+  group_id: "go-api-example"
+  server: "localhost:9094"
+  insert_movie_topic: "topic-insert-movie"

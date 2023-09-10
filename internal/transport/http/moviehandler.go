@@ -51,5 +51,5 @@ func (s *HttpServer) getMovie(request *http.Request) ([]byte, int) {
 	}
 
 	logger.Info("getMovie operation ended")
-	return jsonBody, 200
+	return jsonBody, http.StatusOK
 }

@@ -61,7 +61,7 @@ func GetAppConfig(path string) (*AppConf, error) {
 
 	err := yaml.Unmarshal(yamlFile, &c)
 	if err != nil {
-		return nil, fmt.Errorf("internal_config_getAppconfig_yaml_unmarshal %w", err)
+		return nil, fmt.Errorf("internal_config_getappconfig_yaml_unmarshal %w", err)
 	}
 
 	return &c, nil

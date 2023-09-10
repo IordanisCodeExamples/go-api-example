@@ -18,7 +18,7 @@ func Test_GetAppConfig(t *testing.T) {
 	})
 
 	t.Run("create config error when trying to open file that doesnt exist ", func(t *testing.T) {
-		expectedErrorPartOfMessage := "internal_config_GetAppConfig_open_file"
+		expectedErrorPartOfMessage := "internal_config_getappconfig_open_file"
 		configData, configDataError := config.GetAppConfig("some random file")
 
 		assert.Nil(t, configData)
@@ -27,7 +27,7 @@ func Test_GetAppConfig(t *testing.T) {
 	})
 
 	t.Run("create config error when trying unmarshal yaml file", func(t *testing.T) {
-		expectedErrorPartOfMessage := "internal_config_GetAppConfig_yaml_unmarshal"
+		expectedErrorPartOfMessage := "internal_config_getappconfig_yaml_unmarshal"
 		configData, configDataError := config.GetAppConfig("./test_config2.yaml")
 
 		assert.Nil(t, configData)
