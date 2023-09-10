@@ -33,9 +33,9 @@ jobs:
       run: go test -v ./...
 
     - name: Start MongoDB
-      uses: supercharge/mongodb-github-action@1.6.0
+      uses: supercharge/mongodb-github-action@1.10.0
       with:
-        mongodb-version: 3.4
+        mongodb-version: 7.0
         mongodb-username: username
         mongodb-password: password
 
