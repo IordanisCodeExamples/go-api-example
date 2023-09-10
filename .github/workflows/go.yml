@@ -38,3 +38,6 @@ jobs:
         mongodb-version: 3.4
         mongodb-username: username
         mongodb-password: password
+
+    - name: Test Integration
+      run: go test -v -vet all -tags=integration ./internal/persistence/mongo
