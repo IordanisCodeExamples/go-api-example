@@ -1,4 +1,4 @@
-package transporthttp_test
+package transportgrpc_test
 
 import (
 	"context"
@@ -10,7 +10,7 @@ import (
 	internalctx "github.com/junkd0g/go-api-example/internal/context"
 	internallogger "github.com/junkd0g/go-api-example/internal/logger"
 	transporthttpmock "github.com/junkd0g/go-api-example/internal/mocks/transport/http"
-	transporthttp "github.com/junkd0g/go-api-example/internal/transport/http"
+	transportgrpc "github.com/junkd0g/go-api-example/internal/transport/grpc"
 )
 
 type mocks struct {
@@ -31,15 +31,15 @@ func getMocks(t *testing.T) *mocks {
 	}
 }
 
-func Test_NewHttpServer(t *testing.T) {
+func Test_NewGrpcServer(t *testing.T) {
 	mocks := getMocks(t)
 	t.Run("Creates successfully a HttpServer object", func(t *testing.T) {
-		server, err := transporthttp.NewHttpServer(mocks.ctx, mocks.service)
+		server, err := transportgrpc.NewGprcServer(mocks.ctx, mocks.service)
 		assert.Nil(t, err)
 		assert.NotNil(t, server)
 	})
 	t.Run("Returns error when service is nil", func(t *testing.T) {
-		server, err := transporthttp.NewHttpServer(mocks.ctx, nil)
+		server, err := transportgrpc.NewGprcServer(mocks.ctx, nil)
 		assert.NotNil(t, err)
 		assert.Nil(t, server)
 		assert.Contains(t, err.Error(), "missing parameter service")

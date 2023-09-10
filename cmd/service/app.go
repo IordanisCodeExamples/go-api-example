@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"net"
 	"net/http"
 	"os"
 	"os/signal"
@@ -11,14 +12,17 @@ import (
 	"time"
 
 	"github.com/confluentinc/confluent-kafka-go/kafka"
+	pb "github.com/junkd0g/go-api-example-schema/go/api"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"google.golang.org/grpc"
 
 	"github.com/junkd0g/go-api-example/internal/config"
 	internalctx "github.com/junkd0g/go-api-example/internal/context"
 	internallogger "github.com/junkd0g/go-api-example/internal/logger"
 	store "github.com/junkd0g/go-api-example/internal/persistence/mongo"
 	"github.com/junkd0g/go-api-example/internal/service"
+	transportgrpc "github.com/junkd0g/go-api-example/internal/transport/grpc"
 	transporthttp "github.com/junkd0g/go-api-example/internal/transport/http"
 	transportkafka "github.com/junkd0g/go-api-example/internal/transport/kafka"
 )
@@ -64,6 +68,16 @@ func main() {
 		panic(fmt.Errorf("creating_service %w", err))
 	}
 
+	signalChan := make(chan os.Signal, 1)
+	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
+
+	wg.Add(1)
+	go func() {
+		logger.Info("Starting Kafka Consumer")
+		setUpKafkaConsumer(configData, srv)
+		wg.Done()
+	}()
+
 	wg.Add(1)
 	go func() {
 		logger.Info("Starting Kafka Consumer")
@@ -74,7 +88,14 @@ func main() {
 	wg.Add(1)
 	go func() {
 		logger.Info("Starting HTTP Server")
-		runHttpServer(ctx, configData, srv)
+		runHTTPServer(ctx, configData, srv)
+		wg.Done()
+	}()
+
+	wg.Add(1)
+	go func() {
+		logger.Info("Starting GRPC Server")
+		runGRPCServer(ctx, configData, srv)
 		wg.Done()
 	}()
 
@@ -135,7 +156,7 @@ func setUpKafkaConsumer(config *config.AppConf, srv *service.Service) {
 	select {}
 }
 
-func runHttpServer(ctx context.Context, config *config.AppConf, srv *service.Service) {
+func runHTTPServer(ctx context.Context, config *config.AppConf, srv *service.Service) {
 	httpServer, err := transporthttp.NewHttpServer(ctx, srv)
 	if err != nil {
 		panic(err)
@@ -149,5 +170,28 @@ func runHttpServer(ctx context.Context, config *config.AppConf, srv *service.Ser
 	}
 	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		panic(fmt.Errorf("listener_and_serve: %w", err))
+	}
+}
+
+func runGRPCServer(ctx context.Context, config *config.AppConf, srv *service.Service) {
+	grpcServerHandler, err := transportgrpc.NewGprcServer(ctx, srv)
+	if err != nil {
+		panic(err)
+	}
+
+	listener, err := net.Listen("tcp", ":50051")
+	if err != nil {
+		panic(err)
+	}
+
+	// create a new gRPC server instance
+	grpcServer := grpc.NewServer()
+
+	// bind the service implementation to the gRPC server
+	pb.RegisterMovieServiceServer(grpcServer, grpcServerHandler)
+
+	// start the gRPC server
+	if err := grpcServer.Serve(listener); err != nil {
+		panic(err)
 	}
 }
