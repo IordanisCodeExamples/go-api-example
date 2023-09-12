@@ -16,6 +16,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 
 	"github.com/junkd0g/go-api-example/internal/config"
 	internalctx "github.com/junkd0g/go-api-example/internal/context"
@@ -189,6 +190,9 @@ func runGRPCServer(ctx context.Context, config *config.AppConf, srv *service.Ser
 
 	// bind the service implementation to the gRPC server
 	pb.RegisterMovieServiceServer(grpcServer, grpcServerHandler)
+
+	// Register reflection service on gRPC server
+	reflection.Register(grpcServer)
 
 	// start the gRPC server
 	if err := grpcServer.Serve(listener); err != nil {

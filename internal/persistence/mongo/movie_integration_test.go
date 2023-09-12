@@ -22,7 +22,7 @@ func Test_InsertMovie(t *testing.T) {
 		assert.NotNil(t, c)
 
 		insertedMovie, err := s.InsertMovie(ctx, mongostore.Movie{
-			Title:            "Example Title",
+			Title:            "ExampleTitle2",
 			Year:             2023,
 			Duration:         120,
 			Director:         "John Doe",

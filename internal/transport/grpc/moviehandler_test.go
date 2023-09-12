@@ -5,9 +5,10 @@ import (
 	"testing"
 
 	pb "github.com/junkd0g/go-api-example-schema/go/api"
+	"github.com/stretchr/testify/assert"
+
 	"github.com/junkd0g/go-api-example/internal/transport"
 	transportgrpc "github.com/junkd0g/go-api-example/internal/transport/grpc"
-	"github.com/stretchr/testify/assert"
 )
 
 func Test_GetMovie(t *testing.T) {

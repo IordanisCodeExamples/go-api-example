@@ -4,18 +4,26 @@ import (
 	"context"
 
 	pb "github.com/junkd0g/go-api-example-schema/go/api"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 
+	internalctx "github.com/junkd0g/go-api-example/internal/context"
 	"github.com/junkd0g/go-api-example/internal/transport"
 )
 
 // GetMovie is the grpc handler for getting a movie
 func (s *GrpcServer) GetMovie(ctx context.Context, req *pb.MovieRequest) (*pb.MovieResponse, error) {
+	logger, _ := internalctx.GetLoggerFromContext(s.ctx)
+	logger.Info("getMovie grpc operation started")
 	movie, err := s.Service.GetMovie(ctx, req.Title)
 	if err != nil {
-		return nil, err
+		logger.Error(err.Error())
+		return nil, status.Errorf(codes.Internal, "Failed to retrieve movie: %v", err)
 	}
 
-	return convertToMovieResponse(movie), nil
+	resp := convertToMovieResponse(movie)
+	logger.Info("getMovie grpc operation ended")
+	return resp, nil
 }
 
 func convertToMovieResponse(movie *transport.Movie) *pb.MovieResponse {
