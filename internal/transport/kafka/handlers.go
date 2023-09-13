@@ -24,5 +24,7 @@ func (c Consumer) HandleInsertMovie(msg *kafka.Message) error {
 		logger.Error(err.Error())
 		return err
 	}
+
+	logger.Info("getMovie operation ended")
 	return nil
 }
