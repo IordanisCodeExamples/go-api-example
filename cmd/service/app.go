@@ -75,14 +75,7 @@ func main() {
 	wg.Add(1)
 	go func() {
 		logger.Info("Starting Kafka Consumer")
-		setUpKafkaConsumer(configData, srv)
-		wg.Done()
-	}()
-
-	wg.Add(1)
-	go func() {
-		logger.Info("Starting Kafka Consumer")
-		setUpKafkaConsumer(configData, srv)
+		setUpKafkaConsumer(ctx, configData, srv)
 		wg.Done()
 	}()
 
@@ -135,24 +128,24 @@ func setUpPersistence(ctx context.Context, config *config.AppConf, env string) (
 	return db, nil
 }
 
-func setUpKafkaConsumer(config *config.AppConf, srv *service.Service) {
+func setUpKafkaConsumer(ctx context.Context, config *config.AppConf, srv *service.Service) {
 	configMap := kafka.ConfigMap{
 		"bootstrap.servers": config.Kafka.Server,
 		"group.id":          config.Kafka.GroupID,
 	}
 
-	consumer, err := transportkafka.NewConsumer(&configMap, srv)
+	consumer, err := transportkafka.NewConsumer(ctx, &configMap, srv)
 	if err != nil {
 		panic(err)
 	}
 
-	topicHandlers := map[string]func(*kafka.Message) error{
+	topicHandlers := map[string]func(c *kafka.Message) error{
 		config.Kafka.InsertMovieTopic: consumer.HandleInsertMovie,
 	}
 
 	consumer.RegisterTopicHandlers(topicHandlers)
 
-	consumer.StartConsuming()
+	consumer.StartConsuming(ctx)
 
 	select {}
 }

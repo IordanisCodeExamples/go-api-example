@@ -18,6 +18,7 @@ type Service interface {
 
 // Consumer represents the kafka consumer
 type Consumer struct {
+	ctx               context.Context
 	Consumer          *kafka.Consumer
 	Service           Service
 	TopicsAndHandlers map[string]func(*kafka.Message) error
@@ -25,11 +26,16 @@ type Consumer struct {
 
 // NewConsumer creates a new kafka consumer
 func NewConsumer(
+	ctx context.Context,
 	config *kafka.ConfigMap,
 	service Service,
 ) (*Consumer, error) {
 	if service == nil {
 		return nil, merror.ErrInvalidParameter("service")
+	}
+
+	if config == nil {
+		return nil, merror.ErrInvalidParameter("config")
 	}
 
 	consumer, err := kafka.NewConsumer(config)
@@ -38,6 +44,7 @@ func NewConsumer(
 	}
 
 	return &Consumer{
+		ctx:      ctx,
 		Consumer: consumer,
 		Service:  service,
 	}, nil
@@ -46,6 +53,15 @@ func NewConsumer(
 // RegisterTopicHandlers registers the topic handlers
 func (c *Consumer) RegisterTopicHandlers(topicsAndHandlers map[string]func(*kafka.Message) error) {
 	c.TopicsAndHandlers = topicsAndHandlers
+
+	// Extract topic names from the map keys
+	var topics []string
+	for topic := range topicsAndHandlers {
+		topics = append(topics, topic)
+	}
+
+	// Subscribe to the extracted topics
+	c.Consumer.SubscribeTopics(topics, nil)
 }
 
 // Consume consumes messages from kafka and runs the handler provided
@@ -61,11 +77,10 @@ func (c *Consumer) Consume(handler func(*kafka.Message) error) {
 }
 
 // StartConsuming starts consuming messages from kafka
-func (c *Consumer) StartConsuming() {
+func (c *Consumer) StartConsuming(context.Context) {
 	go c.Consume(func(msg *kafka.Message) error {
 		handler, ok := c.TopicsAndHandlers[*msg.TopicPartition.Topic]
 		if ok {
-			fmt.Println("MARIKA2")
 			handler(msg)
 		} else {
 			return fmt.Errorf("no handler found for topic %s", *msg.TopicPartition.Topic)
