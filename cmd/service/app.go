@@ -180,7 +180,7 @@ func runGRPCServer(ctx context.Context, config *config.AppConf, srv *service.Ser
 		panic(err)
 	}
 
-	listener, err := net.Listen("tcp", ":50051")
+	listener, err := net.Listen("tcp", config.GRPC.Port)
 	if err != nil {
 		panic(err)
 	}

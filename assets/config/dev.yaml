@@ -9,3 +9,5 @@ kafka:
   group_id: "go-api-example"
   server: "localhost:9094"
   insert_movie_topic: "topic-insert-movie"
+grpc:
+  port: ":50051"

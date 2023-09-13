@@ -23,6 +23,7 @@ type AppConf struct {
 	Server ServerConfig `yaml:"server"`
 	DB     DB           `yaml:"db"`
 	Kafka  Kafka        `yaml:"kafka"`
+	GRPC   GRPC         `yaml:"grpc"`
 }
 
 // ServerConfig contains the data for the micro servise server
@@ -43,6 +44,11 @@ type Kafka struct {
 	GroupID          string `yaml:"group_id"`
 	Server           string `yaml:"server"`
 	InsertMovieTopic string `yaml:"insert_movie_topic"`
+}
+
+// GRPC contains the data for the grpc server
+type GRPC struct {
+	Port string `yaml:"port"`
 }
 
 // GetAppConfig reads a spefic file and return the yaml format of it
