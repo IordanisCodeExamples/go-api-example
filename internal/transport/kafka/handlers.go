@@ -5,8 +5,8 @@ import (
 
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 
-	internalctx "github.com/junkd0g/go-api-example/internal/context"
-	transport "github.com/junkd0g/go-api-example/internal/transport"
+	internalctx "github.com/IordanisCodeExamples/go-api-example/internal/context"
+	transport "github.com/IordanisCodeExamples/go-api-example/internal/transport"
 )
 
 // HandleInsertMovie kafka handler to insert movie operation

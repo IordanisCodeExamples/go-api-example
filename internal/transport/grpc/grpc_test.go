@@ -7,10 +7,10 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 
-	internalctx "github.com/junkd0g/go-api-example/internal/context"
-	internallogger "github.com/junkd0g/go-api-example/internal/logger"
-	transporthttpmock "github.com/junkd0g/go-api-example/internal/mocks/transport/http"
-	transportgrpc "github.com/junkd0g/go-api-example/internal/transport/grpc"
+	internalctx "github.com/IordanisCodeExamples/go-api-example/internal/context"
+	internallogger "github.com/IordanisCodeExamples/go-api-example/internal/logger"
+	transporthttpmock "github.com/IordanisCodeExamples/go-api-example/internal/mocks/transport/http"
+	transportgrpc "github.com/IordanisCodeExamples/go-api-example/internal/transport/grpc"
 )
 
 type mocks struct {

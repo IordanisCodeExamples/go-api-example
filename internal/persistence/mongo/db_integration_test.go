@@ -13,7 +13,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	mongostore "github.com/junkd0g/go-api-example/internal/persistence/mongo"
+	mongostore "github.com/IordanisCodeExamples/go-api-example/internal/persistence/mongo"
 )
 
 const (

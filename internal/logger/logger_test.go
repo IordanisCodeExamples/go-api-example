@@ -6,7 +6,7 @@ import (
 	"go.uber.org/zap/zapcore"
 	"go.uber.org/zap/zaptest/observer"
 
-	internallogger "github.com/junkd0g/go-api-example/internal/logger"
+	internallogger "github.com/IordanisCodeExamples/go-api-example/internal/logger"
 )
 
 func TestInfoLog(t *testing.T) {

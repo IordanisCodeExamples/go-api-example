@@ -6,8 +6,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	internalctx "github.com/junkd0g/go-api-example/internal/context"
-	internallogger "github.com/junkd0g/go-api-example/internal/logger"
+	internalctx "github.com/IordanisCodeExamples/go-api-example/internal/context"
+	internallogger "github.com/IordanisCodeExamples/go-api-example/internal/logger"
 )
 
 func Test_Logger(t *testing.T) {

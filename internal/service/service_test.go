@@ -7,8 +7,8 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 
-	servicemock "github.com/junkd0g/go-api-example/internal/mocks/service"
-	"github.com/junkd0g/go-api-example/internal/service"
+	servicemock "github.com/IordanisCodeExamples/go-api-example/internal/mocks/service"
+	"github.com/IordanisCodeExamples/go-api-example/internal/service"
 )
 
 type serviceMocks struct {

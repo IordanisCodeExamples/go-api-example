@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/mongo"
 
-	store "github.com/junkd0g/go-api-example/internal/persistence/mongo"
+	store "github.com/IordanisCodeExamples/go-api-example/internal/persistence/mongo"
 )
 
 func Test_New(t *testing.T) {

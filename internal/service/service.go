@@ -7,7 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 
-	mongostore "github.com/junkd0g/go-api-example/internal/persistence/mongo"
+	mongostore "github.com/IordanisCodeExamples/go-api-example/internal/persistence/mongo"
 )
 
 // Store is the interface that wraps the basic methods of the persistence layer

@@ -10,11 +10,11 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 
-	internalctx "github.com/junkd0g/go-api-example/internal/context"
-	internallogger "github.com/junkd0g/go-api-example/internal/logger"
-	transportkafkamock "github.com/junkd0g/go-api-example/internal/mocks/transport/kafka"
-	transport "github.com/junkd0g/go-api-example/internal/transport"
-	transportkafka "github.com/junkd0g/go-api-example/internal/transport/kafka"
+	internalctx "github.com/IordanisCodeExamples/go-api-example/internal/context"
+	internallogger "github.com/IordanisCodeExamples/go-api-example/internal/logger"
+	transportkafkamock "github.com/IordanisCodeExamples/go-api-example/internal/mocks/transport/kafka"
+	transport "github.com/IordanisCodeExamples/go-api-example/internal/transport"
+	transportkafka "github.com/IordanisCodeExamples/go-api-example/internal/transport/kafka"
 )
 
 type mocks struct {

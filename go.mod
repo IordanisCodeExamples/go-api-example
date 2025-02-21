@@ -1,4 +1,4 @@
-module github.com/junkd0g/go-api-example
+module github.com/IordanisCodeExamples/go-api-example
 
 go 1.20
 

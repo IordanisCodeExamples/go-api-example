@@ -18,14 +18,14 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/junkd0g/go-api-example/internal/config"
-	internalctx "github.com/junkd0g/go-api-example/internal/context"
-	internallogger "github.com/junkd0g/go-api-example/internal/logger"
-	store "github.com/junkd0g/go-api-example/internal/persistence/mongo"
-	"github.com/junkd0g/go-api-example/internal/service"
-	transportgrpc "github.com/junkd0g/go-api-example/internal/transport/grpc"
-	transporthttp "github.com/junkd0g/go-api-example/internal/transport/http"
-	transportkafka "github.com/junkd0g/go-api-example/internal/transport/kafka"
+	"github.com/IordanisCodeExamples/go-api-example/internal/config"
+	internalctx "github.com/IordanisCodeExamples/go-api-example/internal/context"
+	internallogger "github.com/IordanisCodeExamples/go-api-example/internal/logger"
+	store "github.com/IordanisCodeExamples/go-api-example/internal/persistence/mongo"
+	"github.com/IordanisCodeExamples/go-api-example/internal/service"
+	transportgrpc "github.com/IordanisCodeExamples/go-api-example/internal/transport/grpc"
+	transporthttp "github.com/IordanisCodeExamples/go-api-example/internal/transport/http"
+	transportkafka "github.com/IordanisCodeExamples/go-api-example/internal/transport/kafka"
 )
 
 var (

@@ -8,9 +8,10 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
-	"github.com/junkd0g/go-api-example/internal/transport"
-	transporthttp "github.com/junkd0g/go-api-example/internal/transport/http"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/IordanisCodeExamples/go-api-example/internal/transport"
+	transporthttp "github.com/IordanisCodeExamples/go-api-example/internal/transport/http"
 )
 
 func TestGetMovieHandler(t *testing.T) {

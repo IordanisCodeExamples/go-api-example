@@ -5,7 +5,7 @@ package context
 import (
 	"context"
 
-	internallogger "github.com/junkd0g/go-api-example/internal/logger"
+	internallogger "github.com/IordanisCodeExamples/go-api-example/internal/logger"
 )
 
 type contextKey string

@@ -8,7 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 
-	"github.com/junkd0g/go-api-example/internal/persistence"
+	"github.com/IordanisCodeExamples/go-api-example/internal/persistence"
 )
 
 // InsertMovie inserts a movie in the database

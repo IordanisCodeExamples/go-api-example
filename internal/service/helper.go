@@ -1,8 +1,8 @@
 package service
 
 import (
-	mongostore "github.com/junkd0g/go-api-example/internal/persistence/mongo"
-	"github.com/junkd0g/go-api-example/internal/transport"
+	mongostore "github.com/IordanisCodeExamples/go-api-example/internal/persistence/mongo"
+	"github.com/IordanisCodeExamples/go-api-example/internal/transport"
 )
 
 func fromKafkaOjectToMongoObject(movie transport.Movie) mongostore.Movie {

@@ -10,8 +10,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
-	"github.com/junkd0g/go-api-example/internal/persistence"
-	mongostore "github.com/junkd0g/go-api-example/internal/persistence/mongo"
+	"github.com/IordanisCodeExamples/go-api-example/internal/persistence"
+	mongostore "github.com/IordanisCodeExamples/go-api-example/internal/persistence/mongo"
 )
 
 func Test_InsertMovie(t *testing.T) {

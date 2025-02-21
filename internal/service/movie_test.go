@@ -8,9 +8,9 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 
-	mongostore "github.com/junkd0g/go-api-example/internal/persistence/mongo"
-	"github.com/junkd0g/go-api-example/internal/service"
-	"github.com/junkd0g/go-api-example/internal/transport"
+	mongostore "github.com/IordanisCodeExamples/go-api-example/internal/persistence/mongo"
+	"github.com/IordanisCodeExamples/go-api-example/internal/service"
+	"github.com/IordanisCodeExamples/go-api-example/internal/transport"
 )
 
 func Test_IngestMovie(t *testing.T) {

@@ -6,7 +6,7 @@ import (
 	"github.com/gorilla/mux"
 	merror "github.com/junkd0g/neji"
 
-	"github.com/junkd0g/go-api-example/internal/transport"
+	"github.com/IordanisCodeExamples/go-api-example/internal/transport"
 )
 
 // Service is the interface that wraps the service layer methods

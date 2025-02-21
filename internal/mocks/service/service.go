@@ -9,7 +9,7 @@ import (
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	mongostore "github.com/junkd0g/go-api-example/internal/persistence/mongo"
+	mongostore "github.com/IordanisCodeExamples/go-api-example/internal/persistence/mongo"
 	primitive "go.mongodb.org/mongo-driver/bson/primitive"
 	mongo "go.mongodb.org/mongo-driver/mongo"
 )

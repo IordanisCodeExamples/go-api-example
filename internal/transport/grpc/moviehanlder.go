@@ -7,8 +7,8 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	internalctx "github.com/junkd0g/go-api-example/internal/context"
-	"github.com/junkd0g/go-api-example/internal/transport"
+	internalctx "github.com/IordanisCodeExamples/go-api-example/internal/context"
+	"github.com/IordanisCodeExamples/go-api-example/internal/transport"
 )
 
 // GetMovie is the grpc handler for getting a movie
